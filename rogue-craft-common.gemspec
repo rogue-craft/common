@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 Gem::Specification.new do |spec|
   spec.name          = "rogue-craft-common"
   spec.version       = "0.1.0"
-  spec.authors       = ["Farkasvölgyi"]
+  spec.authors       = ["Isty001"]
   spec.email         = ["isty001@gmail.com"]
 
   spec.summary       = %q{: Write a short summary, because RubyGems requires one.}
