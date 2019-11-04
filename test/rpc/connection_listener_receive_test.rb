@@ -6,7 +6,7 @@ class ConnectionListenerReceiveTest < MiniTest::Test
     event = new_event
 
     serializer = MiniTest::Mock.new
-    serializer.expect(:unserialize, nil, [event[:raw], event[:connection]])
+    serializer.expect(:unserialize_msg, nil, [event[:raw], event[:connection]])
 
     listener = RPC::ConnectionListener.new(serializer, nil, nil)
     listener.on_receive_data(event)
@@ -19,7 +19,7 @@ class ConnectionListenerReceiveTest < MiniTest::Test
     msg = RPC::Message.from(parent: 'parent_id')
 
     serializer = MiniTest::Mock.new
-    serializer.expect(:unserialize, msg, [event[:raw], event[:connection]])
+    serializer.expect(:unserialize_msg, msg, [event[:raw], event[:connection]])
 
     store = MiniTest::Mock.new
     store.expect(:has?, true, [msg.parent])
@@ -43,8 +43,8 @@ class ConnectionListenerReceiveTest < MiniTest::Test
     msg = RPC::Message.from(params: {blah: false})
 
     serializer = MiniTest::Mock.new
-    serializer.expect(:unserialize, msg, [event[:raw], connection])
-    serializer.expect(:serialize, serialized_response, [response])
+    serializer.expect(:unserialize_msg, msg, [event[:raw], connection])
+    serializer.expect(:serialize_msg, serialized_response, [response])
 
     router = MiniTest::Mock.new
     router.expect(:dispatch, response, [msg])

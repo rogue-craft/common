@@ -7,7 +7,7 @@ class RPC::MessageDispatcher
   end
 
   def dispatch(msg, connection, &callback)
-    serialized = @serializer.serialize(msg)
+    serialized = @serializer.serialize_msg(msg)
 
     if serialized
       if callback

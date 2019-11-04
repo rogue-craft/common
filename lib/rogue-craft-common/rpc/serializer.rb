@@ -5,7 +5,15 @@ class RPC::Serializer
     MessagePack::DefaultFactory.register_type(0x00, Symbol)
   end
 
-  def serialize(msg)
+  def serialize(value)
+    value.to_msgpack
+  end
+
+  def unserialize(raw)
+    MessagePack.unpack(raw).to_h
+  end
+
+  def serialize_msg(msg)
     {
       id: msg.id,
       target: msg.target,
@@ -15,7 +23,7 @@ class RPC::Serializer
     }.to_msgpack
   end
 
-  def unserialize(raw, source)
+  def unserialize_msg(raw, source)
     begin
       values = MessagePack.unpack(raw).to_h
     rescue Exception => e
