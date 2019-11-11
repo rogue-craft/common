@@ -5,7 +5,7 @@ class RPC::Handler
 
   private
   def send_msg(conn: nil, target: nil, params: {}, code: RPC::Code::OK, parent: nil, &callback)
-    msg = new_msg(target: target, params: get_params(params), code: code, parent: parent)
+    msg = new_msg(target: target, params: params, code: code, parent: parent)
 
     @dispatcher.dispatch(msg, conn, &callback)
   end
