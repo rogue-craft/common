@@ -1,16 +1,8 @@
+MessagePack::DefaultFactory.register_type(0x00, Symbol)
+
 class RPC::Serializer
   def initialize(logger)
     @logger = logger
-
-    MessagePack::DefaultFactory.register_type(0x00, Symbol)
-  end
-
-  def serialize(value)
-    value.to_msgpack
-  end
-
-  def unserialize(raw)
-    MessagePack.unpack(raw).to_h
   end
 
   def serialize_msg(msg)

@@ -33,12 +33,4 @@ class SerializerTest < MiniTest::Test
 
     logger.verify
   end
-
-  def test_serialize_value
-    serializer = RPC::Serializer.new(MiniTest::Mock.new)
-
-    serialized = serializer.serialize({test: 10})
-
-    assert_equal({test: 10}, serializer.unserialize(serialized))
-  end
 end
