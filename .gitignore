@@ -9,3 +9,4 @@
 sandbox/
 *.gem
 *vim*
+coverage/
