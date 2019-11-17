@@ -33,4 +33,12 @@ class SerializerTest < MiniTest::Test
 
     logger.verify
   end
+
+  def test_unserialize_error
+    logger = MiniTest::Mock.new
+    logger.expect(:warn, nil, ['Unable to unserialize message asd Err: 2 extra bytes after the deserialized object'])
+
+    serializer = RPC::Serializer.new(logger)
+    serializer.unserialize_msg('asd', :source)
+  end
 end

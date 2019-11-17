@@ -2,15 +2,15 @@ require_relative '../test'
 
 class RouterTest < MiniTest::Test
   class TestHandler
-    def login(params)
+    def login(_message)
       RPC::Message.from(code: RPC::Code::OK)
     end
   end
 
   class TestAuthHandler
-    def login(msg)
+    def login(_msg)
     end
-    def authorize_login(msg)
+    def authorize_login(_msg)
       false
     end
   end

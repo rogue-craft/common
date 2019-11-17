@@ -17,12 +17,14 @@ class RPC::AsyncStore
   def call(id, msg)
     @pending[id].block.call(msg)
   rescue Exception => e
-    @logger.warn("AsyncStore: error in callback: #{e.message} Parent: #{id}, Message: #{msg.to_s}")
+    @logger.warn("AsyncStore: error in callback: #{e.message} Parent: #{id}, Message: #{msg}")
   ensure
     @pending.delete(id)
   end
 
   def clear(time)
-    @pending.reject! { |msg| msg.created_at + @timeout > time}
+    @pending.reject! do |_, msg|
+      (msg.created_at + @timeout) <= time
+    end
   end
 end

@@ -53,26 +53,26 @@ class RPC::Router
   end
 
   def unknow_target(msg)
-    @logger.warn("Target #{msg.target} not found. Message: #{msg.to_s}")
+    @logger.warn("Target #{msg.target} not found. Message: #{msg}")
 
     return RPC::Message.from(parent: msg.id, code: RPC::Code::UNKNOWN_TARGET)
   end
 
   def invalid_schema(msg, violations)
-    @logger.warn("Target #{msg.target} received invalid parameters. Message: #{msg.to_s}")
+    @logger.warn("Target #{msg.target} received invalid parameters. Message: #{msg}")
 
     return RPC::Message.from(parent: msg.id, code: RPC::Code::INVALID_SCHEMA, params: {violations: violations.to_h})
   end
 
   def unique_violation(msg, err)
-    @logger.info("#{err.to_s}. Message: #{msg.to_s}")
+    @logger.info("#{err.to_s}. Message: #{msg}")
     field = err.message.gsub('UniqueIndexViolation: ', '').to_sym
 
     return RPC::Message.from(parent: msg.id, code: RPC::Code::UNIQUE_VIOLATION, params: {violations: {field => ['already exists']}})
   end
 
   def acces_denied(msg)
-    @logger.warn("Acces denied. Message: #{msg.to_s}")
+    @logger.warn("Acces denied. Message: #{msg}")
 
     return RPC::Message.from(parent: msg.id, code: RPC::Code::ACCESS_DENIED)
   end

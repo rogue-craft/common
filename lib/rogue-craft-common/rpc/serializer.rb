@@ -33,7 +33,7 @@ class RPC::Serializer
     ).freeze
 
     unless valid_message?(msg)
-      @logger.warn("Invalid message received: #{values.to_s}")
+      @logger.warn("Invalid message received: #{values}")
       return nil
     end
 
