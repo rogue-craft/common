@@ -65,7 +65,7 @@ class RPC::Router
   end
 
   def unique_violation(msg, err)
-    @logger.info("#{err.to_s}. Message: #{msg}")
+    @logger.info("#{err}. Message: #{msg}")
     field = err.message.gsub('UniqueIndexViolation: ', '').to_sym
 
     return RPC::Message.from(parent: msg.id, code: RPC::Code::UNIQUE_VIOLATION, params: {violations: {field => ['already exists']}})

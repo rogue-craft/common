@@ -1,5 +1,12 @@
 require_relative '../test'
 
+unless defined?(Ohm::UniqueIndexViolation)
+  module Ohm
+    class UniqueIndexViolation < Exception
+    end
+  end
+end
+
 class RouterTest < MiniTest::Test
   class TestHandler
     def login(_message)
@@ -10,8 +17,13 @@ class RouterTest < MiniTest::Test
   class TestAuthHandler
     def login(_msg)
     end
+
     def authorize_login(_msg)
       false
+    end
+
+    def unique_violation(_msg)
+      raise Ohm::UniqueIndexViolation.new
     end
   end
 
@@ -59,6 +71,21 @@ class RouterTest < MiniTest::Test
     logger.verify
   end
 
+  def test_unique_violation
+    logger = MiniTest::Mock.new
+    logger.expect(:info, nil, ['Ohm::UniqueIndexViolation. Message: id: id target: auth/unique_violation, code: 0 params: {} source: :'])
+
+    router = new_router(TestAuthHandler.new, logger)
+
+    message = RPC::Message.new('id', 'auth/unique_violation', nil, {email: 'hello@example.com'}, RPC::Code::OK, nil)
+
+    res = router.dispatch(message)
+    assert(res.is_a?(RPC::Message))
+    assert_equal(RPC::Code::UNIQUE_VIOLATION, res.code)
+
+    logger.verify
+  end
+
   def test_happy_path
     router = new_router(TestHandler.new)
     message = RPC::Message.new('id', 'auth/login', nil, {email: 'hello@example.com'}, RPC::Code::OK, nil)
@@ -78,7 +105,8 @@ class RouterTest < MiniTest::Test
   def new_router(handler, logger = nil)
     map = {
       auth: {handler: handler, schema: {
-        login: TestLoginSchema.new
+        login: TestLoginSchema.new,
+        unique_violation: TestLoginSchema.new
       }}
     }
     logger = logger ? logger : NULL_LOGGER
