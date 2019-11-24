@@ -11,7 +11,7 @@ class RPC::MessageDispatcher
 
     if serialized
       if callback
-        @async_store.add(msg.id, callback, Time.now)
+        @async_store.add(msg.id, callback, Time.now.to_f * 1000)
       end
 
       (connection || @default_connection).send_data(serialized)

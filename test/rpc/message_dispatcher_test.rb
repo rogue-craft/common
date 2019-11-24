@@ -10,8 +10,10 @@ class MessageDispatcherTest < MiniTest::Test
 
     callback = proc {}
 
+    Time.expects(:now).returns(10.1)
+
     async_store = mock
-    async_store.expects(:add).with(msg.id, callback, is_a(Time))
+    async_store.expects(:add).with(msg.id, callback, 10100.0)
 
     default_connection = mock
     default_connection.expects(:send_data).with('serialized')
