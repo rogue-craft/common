@@ -24,7 +24,7 @@ class RPC::Router
 
     response = execute(handler, action, message)
 
-    unless response.is_a?(RPC::Message)
+    if !response.nil? && !response.is_a?(RPC::Message)
       raise ArgumentError.new("Handler response must be a RPC::Message")
     end
 

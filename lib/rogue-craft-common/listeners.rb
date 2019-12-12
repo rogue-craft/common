@@ -4,6 +4,7 @@ def RogueCraftCommon.register_common_listeners(publisher, container)
   publisher.subscribe(RPC::ConnectionListener.new(
     container.resolve(:serializer),
     container.resolve(:async_store),
-    container.resolve(:router)
+    container.resolve(:router),
+    container.resolve(:logger)
   ))
 end

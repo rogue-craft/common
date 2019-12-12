@@ -7,7 +7,7 @@ class RPC::Message
     @parent = parent
     @code = code
     @source = source
-    @params = params
+    @params = params.to_h
 
     @params.freeze
   end
