@@ -79,8 +79,6 @@ class ConnectionListenerReceiveTest < MiniTest::Test
   end
 
   def test_no_response
-    serialized_response = 'serialized'
-
     connection = MiniTest::Mock.new
 
     event = new_event(connection: connection)
