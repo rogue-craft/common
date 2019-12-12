@@ -7,8 +7,9 @@ class ListenerRegistrationTest < MiniTest::Test
     container.expects(:resolve).with(:serializer).returns(serializer = mock)
     container.expects(:resolve).with(:async_store).returns(async_store = mock)
     container.expects(:resolve).with(:router).returns(router = mock)
+    container.expects(:resolve).with(:logger).returns(logger = mock)
 
-    RPC::ConnectionListener.expects(:new).with(serializer, async_store, router).returns(listener = mock)
+    RPC::ConnectionListener.expects(:new).with(serializer, async_store, router, logger).returns(listener = mock)
 
     publisher = mock
     publisher.expects(:register_event).with(:receive_data)
