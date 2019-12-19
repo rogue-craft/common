@@ -43,8 +43,11 @@ class RPC::Router
 
     begin
       call_handler(handler, action, message)
-    rescue Ohm::UniqueIndexViolation => e
-      unique_violation(message, e)
+    rescue Exception => e
+      if defined?(Ohm) && e.is_a?(Ohm::UniqueIndexViolation)
+        return unique_violation(message, e)
+      end
+      raise e
     end
   end
 
