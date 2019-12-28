@@ -54,7 +54,7 @@ class ConnectionListenerReceiveTest < MiniTest::Test
   end
 
   def test_new_incoming_message
-    response = RPC::Message.from({})
+    response = RPC::Message.from
     serialized_response = 'serialized'
 
     connection = MiniTest::Mock.new

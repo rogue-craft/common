@@ -11,7 +11,7 @@ class HandlerTest < MiniTest::Test
 
   def test_send
     dispatcher = mock
-    dispatcher.expects(:dispatch).yields.with do |msg|
+    dispatcher.expects(:dispatch).with do |msg|
       assert(msg.code?(RPC::Code::ACCESS_DENIED))
       assert_equal('target', msg.target)
       assert_equal({hello: 10}, msg.params)
