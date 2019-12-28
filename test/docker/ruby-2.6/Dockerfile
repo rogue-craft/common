@@ -6,6 +6,6 @@ WORKDIR /app
 COPY Gemfile /app/
 COPY rogue-craft-common.gemspec /app/
 
-RUN gem install bundler:2.1.2
+RUN gem install bundle
 
 COPY . /app
