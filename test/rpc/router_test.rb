@@ -14,6 +14,12 @@ class RouterTest < MiniTest::Test
     end
   end
 
+  class NonMessageReturnHandler
+    def login(_msg)
+      23321
+    end
+  end
+
   class TestAuthHandler
     def login(_msg)
     end
@@ -93,6 +99,14 @@ class RouterTest < MiniTest::Test
     res = router.dispatch(message)
     assert(res.is_a?(RPC::Message))
     assert_equal(RPC::Code::OK, res.code)
+  end
+
+  def test_non_message_return
+    router = new_router(NonMessageReturnHandler.new)
+    message = RPC::Message.new('id', 'auth/login', nil, {email: 'hello@example.com'}, RPC::Code::OK, nil)
+
+    res = router.dispatch(message)
+    assert_nil(res)
   end
 
   class TestLoginSchema < Dry::Validation::Contract
