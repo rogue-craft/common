@@ -35,7 +35,7 @@ class RouterTest < MiniTest::Test
 
   def test_invalid_schema
     logger = MiniTest::Mock.new
-    logger.expect(:warn, nil, ['Target auth/login received invalid parameters. Message: id: id target: auth/login, code: 0 params: {:invalid=>10} source: :'])
+    logger.expect(:warn, nil, ['Target auth/login received invalid parameters. Violations: {:email=>["is missing"]} Message: id: id target: auth/login, code: 0 params: {:invalid=>10} source: :'])
 
     router = new_router(TestHandler.new, logger)
     message = RPC::Message.new('id', 'auth/login', nil, {invalid: 10}, RPC::Code::OK, nil)

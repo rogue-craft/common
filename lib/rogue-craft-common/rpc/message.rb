@@ -38,7 +38,7 @@ class RPC::Message
   def to_s
     port, ip = source ? Socket.unpack_sockaddr_in(source.get_peername) : [nil, nil]
 
-    "id: #{id} target: #{target}, code: #{code} params: #{logged_params} source: #{ip}:#{port}"
+    "id: #{id} target: #{target}, code: #{code} params: #{logged_params} source: #{ip}:#{port}"[0..200]
   end
 
   UNLOGGED_PARAMS = %i[password password_confirmation email]

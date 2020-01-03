@@ -60,7 +60,7 @@ class RPC::Router
   end
 
   def invalid_schema(msg, violations)
-    @logger.warn("Target #{msg.target} received invalid parameters. Message: #{msg}")
+    @logger.warn("Target #{msg.target} received invalid parameters. Violations: #{violations.to_h} Message: #{msg}")
 
     return RPC::Message.from(parent: msg.id, code: RPC::Code::INVALID_SCHEMA, params: {violations: violations.to_h})
   end
