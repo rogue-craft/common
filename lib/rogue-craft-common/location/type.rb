@@ -1,0 +1,24 @@
+class Location::Type
+  WATER = 0
+  ICE = 1
+  SWAMP = 2
+
+  SAND = 3
+  SNOWY_SAND = 4
+
+  GRASS = 5
+  SNOWY_GRASS = 6
+  DARK_GRASS = 7
+  DRY_GRASS = 8
+
+  HILL = 9
+  SAND_HILL = 10
+  SNOWY_HILL = 11
+  GRASSY_HILL = 12
+
+  TREE = 13
+  SNOWY_TREE = 14
+  DEAD_TREE = 15
+
+  SNOW = 16
+end
