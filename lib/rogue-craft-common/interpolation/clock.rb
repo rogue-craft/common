@@ -17,6 +17,10 @@ class Interpolation::Clock
     @base = base.to_f * 1000
   end
 
+  def reset
+    @base = nil
+  end
+
   # @return [Float]
   #
   def now
