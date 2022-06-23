@@ -18,7 +18,7 @@ class MessageDispatcherTest < MiniTest::Test
     default_connection = mock
     default_connection.expects(:send_data).with('serialized')
 
-    dispatcher = RPC::MessageDispatcher.new(serializer, async_store, default_connection)
+    dispatcher = RPC::MessageDispatcher.new(serializer, async_store, default_connection, mock_logger)
 
     dispatcher.dispatch(msg, nil, &callback)
   end
@@ -32,8 +32,16 @@ class MessageDispatcherTest < MiniTest::Test
     connection = mock
     connection.expects(:send_data).with('serialized')
 
-    dispatcher = RPC::MessageDispatcher.new(serializer, nil, nil)
+    dispatcher = RPC::MessageDispatcher.new(serializer, nil, nil, mock_logger)
 
     dispatcher.dispatch(msg, connection)
+  end
+
+  private
+  def mock_logger
+    logger = mock
+    logger.expects(:debug)
+
+    logger
   end
 end

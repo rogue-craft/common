@@ -23,7 +23,7 @@ end
 
 if defined?(Dependency)
   class RPC::InjectedHandler < RPC::Handler
-    include Dependency[:message_dispatcher]
+    include Dependency[:message_dispatcher, :logger]
 
     def initialize(args)
       super(args[:message_dispatcher])

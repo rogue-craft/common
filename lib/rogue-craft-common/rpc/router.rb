@@ -40,6 +40,8 @@ class RPC::Router
     end
 
     begin
+      @logger.debug("Calling Handler: #{handler}::#{action} Message: #{message}")
+
       call_handler(handler, action, message)
     rescue Exception => e
       if defined?(Ohm) && e.is_a?(Ohm::UniqueIndexViolation)
